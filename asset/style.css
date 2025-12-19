@@ -1,0 +1,87 @@
+:root {
+  --color-primary: #FFFFFF;
+  --color-secondary: #0E1A3D;
+  --color-accent: #FFD800;
+  --color-text-light: #666666;
+  --color-border: #E0E5F0;
+  --color-card-bg: #FFFFFF;
+  --radius-lg: 14px;
+  --radius-full: 1000px;
+  --shadow-sm: 0 2px 8px rgba(14, 26, 61, 0.1);
+  --shadow-md: 0 4px 20px rgba(14, 26, 61, 0.15);
+  --shadow-xl: 0 16px 60px rgba(14, 26, 61, 0.25);
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Roboto', sans-serif; background: var(--color-primary); color: var(--color-secondary); display: flex; justify-content: center; align-items: center; padding: var(--space-xl); min-height: 100vh; }
+
+.main-wrapper { background: var(--color-primary); border-radius: var(--radius-lg); padding: var(--space-xl); max-width: 1200px; width: 100%; box-shadow: var(--shadow-xl); }
+
+.header-container { text-align: center; margin-bottom: var(--space-xl); }
+.logo-text { font-size: 2.5rem; font-weight: 800; color: var(--color-secondary); }
+.logo-text span { color: var(--color-secondary); font-weight: 900; }
+.main-title { font-size: 1.8rem; font-weight: 700; margin-bottom: var(--space-sm); }
+.subtitle { font-size: 1rem; color: var(--color-text-light); margin: 0 auto var(--space-md); max-width: 500px; text-align: center; }
+
+/* ======= Search Bar ======= */
+.search-section { margin-bottom: var(--space-xl); display: flex; justify-content: center; }
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 650px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+.search-wrapper:focus-within {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-md);
+}
+.search-bar {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--color-secondary);
+}
+.search-bar::placeholder {
+  color: rgba(14,26,61,0.5);
+}
+.search-btn {
+  background: var(--color-accent);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.search-btn:hover {
+  background: #e6c700;
+}
+
+/* ======= Cards ======= */
+.cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); }
+.transport-card { background: var(--color-card-bg); border-radius: var(--radius-lg); padding: var(--space-lg); border: 1.5px solid var(--color-border); display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: var(--shadow-sm); transition: all 0.3s; }
+.transport-card:hover { transform: translateY(-5px); border-color: var(--color-accent); box-shadow: var(--shadow-md); }
+.image-container { width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin-bottom: var(--space-md); border: 2px solid var(--color-border); }
+.image-container img { width: 100%; height: 100%; object-fit: cover; }
+.card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: var(--space-sm); text-transform: uppercase; }
+.card-description { color: var(--color-text-light); font-size: 0.9rem; font-weight: 400; margin-bottom: var(--space-lg); }
+.details-button { background: transparent; border: 1.5px solid var(--color-accent); color: var(--color-accent); padding: var(--space-sm) var(--space-lg); font-weight: 600; border-radius: var(--radius-full); cursor: pointer; transition: all 0.3s; width: 100%; max-width: 160px; display: flex; justify-content: center; align-items: center; gap: var(--space-sm); }
+.details-button:hover { background: var(--color-accent); color: var(--color-primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3); }
+
+/* ======= Responsive ======= */
+@media (max-width: 992px) { .cards-container { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .cards-container { grid-template-columns: 1fr; } }
