@@ -10,13 +10,15 @@ UI/UX principles such as clear input fields, readable typography, and intuitive 
 
 Student:Ouled Amer hadjer 
 2. Sign Up Interface
-   
+The page is divided into two panels inside the signup container. The left panel contains the site logo with the text “SMART RIDE DZ” and a subtitle, a motivational title and subtitle, a list of benefits with icons, key statistics, and a motivational quote displayed at the bottom of the panel.
 
-The Sign Up interface is developed using HTML, CSS, and JavaScript.
-It enables new users to create an account by providing their personal information in a structured and user-friendly form.
-The design emphasizes clarity, responsiveness, and visual consistency with the rest of the application.
-Client-side validation is used to guide users and reduce input errors.
+The right panel contains the form title and an explanatory subtitle, as well as the registration form. The form includes fields for first name, last name, email, phone number, password, and password confirmation. It also includes a password strength indicator with bars and text, password matching verification, a checkbox to accept the terms and conditions, a “START MY JOURNEY” button, and a security note indicating data protection. A success message is hidden by default and displayed after successful form validation.
 
+The styling uses a blue gradient theme for the left panel and a white background for the right panel. The “START MY JOURNEY” button uses a green gradient with hover and animation effects. Form fields have animated focus effects, red error states, and password hover interactions. The layout is responsive and adapted for screens smaller than or equal to 900px and 480px. Decorative elements include a semi-transparent motivational overlay and a quote section with a blurred background effect.
+
+The JavaScript handles showing and hiding passwords, real-time password strength checking, and password matching verification. It validates the form by ensuring all fields are filled, the email and phone number are valid, the password is at least eight characters long with correct confirmation, and the terms and conditions are accepted. If all checks pass, the success message is displayed with a CSS transition animation.
+
+Overall, this page provides a complete and secure registration form with client-side validation, an interactive password strength indicator, an animated gradient button, a motivational and engaging design, and full responsiveness for mobile and tablet devices.
 Student:Nouri Meriem 
 3. Home Interface
 
