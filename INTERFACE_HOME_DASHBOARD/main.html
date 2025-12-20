@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Ride DZ</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#0e1a3d;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar{
+    display:flex;
+    align-items:center;
+    padding:15px;
+}
+.hamburger-menu{
+    width:40px;height:40px;
+    display:flex;flex-direction:column;
+    justify-content:center;gap:6px;
+    cursor:pointer;
+}
+.hamburger-line{
+    width:30px;height:4px;
+    background:#FFD800;border-radius:2px;
+}
+.smart-header{
+    font-size:28px;
+    font-weight:bold;
+    margin-left:15px;
+}
+
+/* ===== MAIN ===== */
+.main-container{flex:1;display:flex}
+.map-section{
+    width:60%;
+    border:3px solid #ffd800;
+    margin:10px;border-radius:5px;
+    overflow:hidden;
+}
+.form-section{
+    width:40%;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* ===== INPUTS ===== */
+.input-group{margin-bottom:20px}
+.input-label{margin-bottom:8px;font-weight:bold}
+.input-field{
+    width:100%;height:45px;
+    border:3px solid #ffd800;
+    border-radius:4px;
+    padding:0 15px;
+    font-weight:bold;
+}
+
+/* ===== SEARCH ===== */
+.search-button-section{text-align:center;margin-top:30px}
+.search-btn{
+    background:#ffd800;
+    border:none;
+    padding:12px 40px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* ===== MENU ===== */
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:none;
+    z-index:1000;
+}
+.menu-content{
+    width:250px;
+    height:100%;
+    background:#0e1a3d;
+    padding:30px 15px;
+}
+.menu-header{
+    color:#ffd800;
+    font-size:22px;
+    margin-bottom:20px;
+    text-align:center;
+}
+.menu-item{
+    padding:12px;
+    cursor:pointer;
+}
+.menu-item:hover{
+    background:rgba(255,216,0,.1);
+}
+.close-btn{
+    position:absolute;
+    top:15px;left:270px;
+    font-size:30px;
+    color:#ffd800;
+    cursor:pointer;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1001;
+}
+.modal-content{
+    background:#0e1a3d;
+    padding:25px;
+    border-radius:10px;
+    border:3px solid #ffd800;
+    max-width:500px;
+    width:100%;
+}
+.modal-title{
+    color:#ffd800;
+    font-size:24px;
+    text-align:center;
+    margin-bottom:20px;
+}
+.modal-body{line-height:1.6}
+
+/* ===== RIDES ===== */
+.ride-option{
+    border:1px solid #ffd800;
+    padding:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+.ride-option:hover{background:#2d3e7a}
+.ride-type{color:#ffd800;font-weight:bold}
+.ride-price{float:right;font-weight:bold}
+
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+    <div class="smart-header">Smart Ride DZ</div>
+</div>
+
+<div class="main-container">
+
+<div class="map-section">
+<iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.9,36.6,3.4,36.9"
+width="100%" height="100%" frameborder="0"></iframe>
+</div>
+
+<div class="form-section">
+    <div class="input-group">
+        <div class="input-label">FROM</div>
+        <input class="input-field" placeholder="Enter starting location">
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">TO</div>
+        <input class="input-field" placeholder="Enter destination">
+    </div>
+
+    <div class="search-button-section">
+        <button class="search-btn" onclick="performSearch()">SEARCH</button>
+    </div>
+</div>
+
+</div>
+
+<!-- MENU -->
+<div id="menuOverlay" class="menu-overlay">
+<div class="menu-content">
+<div class="menu-header">Menu</div>
+<div class="menu-item" onclick="showContent('profile')">Profile</div>
+<div class="menu-item" onclick="showContent('history')">History</div>
+<div class="menu-item" onclick="showContent('setting')">Settings</div>
+<div class="menu-item" onclick="showContent('help')">Help</div>
+</div>
+<div class="close-btn" onclick="toggleMenu()">×</div>
+</div>
+
+<script>
+function toggleMenu(){
+    const m=document.getElementById("menuOverlay");
+    m.style.display=m.style.display==="flex"?"none":"flex";
+}
+
+function performSearch(){
+    const inputs=document.querySelectorAll(".input-field");
+    if(!inputs[0].value||!inputs[1].value){
+        alert("Fill FROM and TO");
+        return;
+    }
+    showRideOptions(inputs[0].value,inputs[1].value);
+}
+
+function showRideOptions(from,to){
+    const modal=document.createElement("div");
+    modal.className="modal-overlay";
+    modal.innerHTML=`
+    <div class="modal-content">
+    <div class="modal-title">Choose Ride</div>
+    <div class="modal-body">
+        <p><b>From:</b> ${from}</p>
+        <p><b>To:</b> ${to}</p><hr>
+        <div class="ride-option" onclick="selectRide('Economy',650)">🚗 Economy <span class="ride-price">650 DZD</span></div>
+        <div class="ride-option" onclick="selectRide('Comfort',850)">🚙 Comfort <span class="ride-price">850 DZD</span></div>
+        <div class="ride-option" onclick="selectRide('Premium',1200)">🏎 Premium <span class="ride-price">1200 DZD</span></div>
+    </div>
+    </div>`;
+    document.body.appendChild(modal);
+}
+
+function selectRide(type,price){
+    document.querySelectorAll(".modal-overlay").forEach(m=>m.remove());
+    alert(`Ride confirmed\n${type} - ${price} DZD`);
+}
+
+function showContent(section){
+    toggleMenu();
+    alert(section.toUpperCase());
+}
+</script>
+
+</body>
+</html>
